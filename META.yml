@@ -1,0 +1,21 @@
+---
+abstract: 'Generate SQL with PostgreSQL specific extensions'
+author:
+  - 'Oliver Charles <oliver.g.charles@googlemail.com>'
+build_requires: {}
+configure_requires:
+  ExtUtils::MakeMaker: 6.11
+generated_by: 'Dist::Zilla version 1.100711'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Fey-SQL-Pg
+requires:
+  Fey::SQL: 0.34
+  Method::Signatures::Simple: 0.05
+  Moose: 0.90
+  MooseX::Params::Validate: 0.13
+  MooseX::StrictConstructor: 0.08
+  namespace::autoclean: 0.09
+version: 0.003
