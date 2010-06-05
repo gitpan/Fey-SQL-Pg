@@ -1,5 +1,8 @@
 package Fey::SQL::Pg::Delete;
-our $VERSION = '0.003';
+BEGIN {
+  $Fey::SQL::Pg::Delete::VERSION = '0.004';
+}
+# ABSTRACT: Generate PostgreSQL specific DELETE statements
 use Moose;
 use namespace::autoclean;
 
@@ -21,16 +24,31 @@ around sql => sub {
 
 __PACKAGE__->meta->make_immutable;
 
+
+
 __END__
 =pod
 
 =head1 NAME
 
-Fey::SQL::Pg::Delete
+Fey::SQL::Pg::Delete - Generate PostgreSQL specific DELETE statements
 
 =head1 VERSION
 
-version 0.003
+version 0.004
+
+=head1 DESCRIPTION
+
+Specific PostgreSQL extensions to C<DELETE> statements.
+
+=head1 EXTENSIONS
+
+=head2 DELETE ... RETURNING
+
+Allows you to perform a C<SELECT> like query on deleted rows.
+
+Specify columns to be returned by using C<returning>. This takes the
+same input as C<select> in L<Fey::SQL::Select>.
 
 =head1 AUTHOR
 

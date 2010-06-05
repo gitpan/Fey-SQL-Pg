@@ -4,38 +4,51 @@ use warnings;
 
 
 
-use ExtUtils::MakeMaker 6.11;
+use ExtUtils::MakeMaker 6.31;
 
 
 
 my %WriteMakefileArgs = (
-                       'test' => {
-                                   'TESTS' => 't/*.t'
-                                 },
-                       'NAME' => 'Fey::SQL::Pg',
-                       'DISTNAME' => 'Fey-SQL-Pg',
-                       'CONFIGURE_REQUIRES' => {
-                                                 'ExtUtils::MakeMaker' => '6.11'
-                                               },
-                       'AUTHOR' => 'Oliver Charles <oliver.g.charles@googlemail.com>',
-                       'BUILD_REQUIRES' => {},
-                       'ABSTRACT' => 'Generate SQL with PostgreSQL specific extensions',
-                       'EXE_FILES' => [],
-                       'VERSION' => '0.003',
-                       'PREREQ_PM' => {
-                                        'MooseX::StrictConstructor' => '0.08',
-                                        'namespace::autoclean' => '0.09',
-                                        'Method::Signatures::Simple' => '0.05',
-                                        'MooseX::Params::Validate' => '0.13',
-                                        'Fey::SQL' => '0.34',
-                                        'Moose' => '0.90'
-                                      },
-                       'LICENSE' => 'perl'
-                     );
+  'ABSTRACT' => 'Generate SQL with PostgreSQL specific extensions',
+  'AUTHOR' => 'Oliver Charles <oliver.g.charles@googlemail.com>',
+  'BUILD_REQUIRES' => {},
+  'CONFIGURE_REQUIRES' => {
+    'ExtUtils::MakeMaker' => '6.31'
+  },
+  'DISTNAME' => 'Fey-SQL-Pg',
+  'EXE_FILES' => [],
+  'LICENSE' => 'perl',
+  'NAME' => 'Fey::SQL::Pg',
+  'PREREQ_PM' => {
+    'Fey::SQL' => '0.34',
+    'Method::Signatures::Simple' => '0.05',
+    'Moose' => '0.90',
+    'MooseX::Params::Validate' => '0.13',
+    'MooseX::StrictConstructor' => '0.08',
+    'namespace::autoclean' => '0.09'
+  },
+  'VERSION' => '0.004',
+  'test' => {
+    'TESTS' => 't/*.t'
+  }
+);
 
 
-delete $WriteMakefileArgs{LICENSE}
-  unless eval { ExtUtils::MakeMaker->VERSION(6.31) };
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 WriteMakefile(%WriteMakefileArgs);
 

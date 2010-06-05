@@ -1,5 +1,7 @@
 package Fey::SQL::Pg;
-our $VERSION = '0.003';
+BEGIN {
+  $Fey::SQL::Pg::VERSION = '0.004';
+}
 # ABSTRACT: Generate SQL with PostgreSQL specific extensions
 use Moose;
 use Method::Signatures::Simple;
@@ -20,6 +22,7 @@ method new_delete {
 
 __PACKAGE__->meta->make_immutable;
 
+
 __END__
 =pod
 
@@ -29,7 +32,28 @@ Fey::SQL::Pg - Generate SQL with PostgreSQL specific extensions
 
 =head1 VERSION
 
-version 0.003
+version 0.004
+
+=head1 SYNOPSIS
+
+    use Fey::SQL::Pg;
+    my $insert = Fey::SQL::Pg
+        ->new_insert( auto_placeholders => 0 )
+        ->into( $s->table('User') );
+        ->returning( $s->table('User')->column('user_id'));
+
+=head1 DESCRIPTION
+
+Adds some PostgreSQL specific extensions to L<Fey>. For the excat features
+implemented, see:
+
+=over 4
+
+=item L<Fey::SQL::Pg::Insert>
+
+=item L<Fey::SQL::Pg::Delete>
+
+=back
 
 =head1 AUTHOR
 

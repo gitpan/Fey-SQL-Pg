@@ -1,5 +1,8 @@
 package Fey::SQL::Pg::Role::Returning;
-our $VERSION = '0.003';
+BEGIN {
+  $Fey::SQL::Pg::Role::Returning::VERSION = '0.004';
+}
+# ABSTRACT: A role for SQL statements that have a RETURNING clause
 use Moose::Role;
 use namespace::autoclean;
 
@@ -54,16 +57,34 @@ method returning_clause ($dbh)
 
 1;
 
+
 __END__
 =pod
 
 =head1 NAME
 
-Fey::SQL::Pg::Role::Returning
+Fey::SQL::Pg::Role::Returning - A role for SQL statements that have a RETURNING clause
 
 =head1 VERSION
 
-version 0.003
+version 0.004
+
+=head1 DESCRPITION
+
+Many statements in PostgreSQL allow you to specify a C<RETURNING>
+clause. This role simply abstracts this part of generation.
+
+=head1 METHODS
+
+=head2 returning
+
+Specify columns to return. See the documentation on C<select> in
+L<Fey::SQL::Select> for the exact syntax, as this method takes
+the same input
+
+=head2 returning_clause
+
+Returns the C<RETURNING> portion as an SQL string
 
 =head1 AUTHOR
 
