@@ -1,6 +1,6 @@
 package Fey::SQL::Pg::Delete;
 BEGIN {
-  $Fey::SQL::Pg::Delete::VERSION = '0.004';
+  $Fey::SQL::Pg::Delete::VERSION = '0.005';
 }
 # ABSTRACT: Generate PostgreSQL specific DELETE statements
 use Moose;
@@ -23,19 +23,18 @@ around sql => sub {
 
 
 __PACKAGE__->meta->make_immutable;
+1;
 
 
 
 __END__
 =pod
 
+=encoding utf-8
+
 =head1 NAME
 
 Fey::SQL::Pg::Delete - Generate PostgreSQL specific DELETE statements
-
-=head1 VERSION
-
-version 0.004
 
 =head1 DESCRIPTION
 
@@ -52,7 +51,7 @@ same input as C<select> in L<Fey::SQL::Select>.
 
 =head1 AUTHOR
 
-  Oliver Charles <oliver.g.charles@googlemail.com>
+Oliver Charles <oliver.g.charles@googlemail.com>
 
 =head1 COPYRIGHT AND LICENSE
 

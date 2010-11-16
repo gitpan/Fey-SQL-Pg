@@ -1,5 +1,8 @@
 package Fey::SQL::Pg;
 BEGIN {
+  $Fey::SQL::Pg::VERSION = '0.005';
+}
+BEGIN {
   $Fey::SQL::Pg::VERSION = '0.004';
 }
 # ABSTRACT: Generate SQL with PostgreSQL specific extensions
@@ -21,18 +24,18 @@ method new_delete {
 }
 
 __PACKAGE__->meta->make_immutable;
+1;
+
 
 
 __END__
 =pod
 
+=encoding utf-8
+
 =head1 NAME
 
 Fey::SQL::Pg - Generate SQL with PostgreSQL specific extensions
-
-=head1 VERSION
-
-version 0.004
 
 =head1 SYNOPSIS
 
@@ -57,7 +60,7 @@ implemented, see:
 
 =head1 AUTHOR
 
-  Oliver Charles <oliver.g.charles@googlemail.com>
+Oliver Charles <oliver.g.charles@googlemail.com>
 
 =head1 COPYRIGHT AND LICENSE
 

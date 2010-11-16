@@ -1,6 +1,6 @@
 package Fey::SQL::Pg::Role::Returning;
 BEGIN {
-  $Fey::SQL::Pg::Role::Returning::VERSION = '0.004';
+  $Fey::SQL::Pg::Role::Returning::VERSION = '0.005';
 }
 # ABSTRACT: A role for SQL statements that have a RETURNING clause
 use Moose::Role;
@@ -8,6 +8,8 @@ use namespace::autoclean;
 
 use Method::Signatures::Simple;
 use MooseX::Params::Validate qw( validated_hash pos_validated_list );
+
+use Fey::Types qw( SelectElement );
 
 has '_return' => (
     traits   => [ 'Array' ],
@@ -25,7 +27,7 @@ method returning {
     my $count = @_ ? @_ : 1;
     my (@returning) = pos_validated_list(
         \@_,
-        ( ( { isa => 'Fey::Types::SelectElement' } ) x $count ),
+        ( ( { isa => SelectElement } ) x $count ),
         MX_PARAMS_VALIDATE_NO_CACHE => 1,
     );
 
@@ -58,21 +60,15 @@ method returning_clause ($dbh)
 1;
 
 
+
 __END__
 =pod
+
+=encoding utf-8
 
 =head1 NAME
 
 Fey::SQL::Pg::Role::Returning - A role for SQL statements that have a RETURNING clause
-
-=head1 VERSION
-
-version 0.004
-
-=head1 DESCRPITION
-
-Many statements in PostgreSQL allow you to specify a C<RETURNING>
-clause. This role simply abstracts this part of generation.
 
 =head1 METHODS
 
@@ -86,9 +82,14 @@ the same input
 
 Returns the C<RETURNING> portion as an SQL string
 
+=head1 DESCRPITION
+
+Many statements in PostgreSQL allow you to specify a C<RETURNING>
+clause. This role simply abstracts this part of generation.
+
 =head1 AUTHOR
 
-  Oliver Charles <oliver.g.charles@googlemail.com>
+Oliver Charles <oliver.g.charles@googlemail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
